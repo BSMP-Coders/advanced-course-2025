@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rock Paper Scissors (Basic 1)</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    button { font-size: 1.2em; margin: 10px; padding: 10px 20px; }
+    #result { margin-top: 30px; font-size: 1.3em; }
+  </style>
+</head>
+<body>
+  <h1>Rock Paper Scissors</h1>
+  <div>
+    <button onclick="play('Rock')">Rock</button>
+    <button onclick="play('Paper')">Paper</button>
+    <button onclick="play('Scissors')">Scissors</button>
+  </div>
+  <div id="result">Click a button to play!</div>
+  <script>
+    function play(playerChoice) {
+      const choices = ["Rock", "Paper", "Scissors"];
+      const computerChoice = choices[Math.floor(Math.random() * 3)];
+      let result = "";
+      if (playerChoice === computerChoice) {
+        result = "It's a tie!";
+      } else if (
+        (playerChoice === "Rock" && computerChoice === "Scissors") ||
+        (playerChoice === "Paper" && computerChoice === "Rock") ||
+        (playerChoice === "Scissors" && computerChoice === "Paper")
+      ) {
+        result = "You win!";
+      } else {
+        result = "Computer wins!";
+      }
+      document.getElementById("result").textContent =
+        `You: ${playerChoice}, Computer: ${computerChoice} — ${result}`;
+    }
+  </script>
+</body>
+</html>

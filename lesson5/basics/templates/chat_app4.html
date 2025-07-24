@@ -1,0 +1,29 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Autocomplete</title>  
+    <script>  
+        async function getAutocomplete() {  
+            const prompt = document.getElementById('inputText').value;  
+            const response = await fetch('/autocomplete', {  
+                method: 'POST',  
+                headers: {  
+                    'Content-Type': 'application/json'  
+                },  
+                body: JSON.stringify({ prompt })  
+            });  
+            const data = await response.json();  
+            document.getElementById('suggestions').innerText = data.suggestions;  
+        }  
+    </script>  
+</head>  
+<body>  
+    <h1>Welcome to the Autocomplete App</h1>  
+    <div>  
+        <input type="text" id="inputText" oninput="getAutocomplete()">  
+        <div id="suggestions"></div>  
+    </div>  
+</body>  
+</html>  

@@ -1,0 +1,21 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <title>Build Your Custom Playlist</title>  
+</head>  
+<body>  
+    <h1>Build Your Custom Playlist</h1>  
+    <form action="/generate" method="post">  
+        <label for="artist">Select an Artist:</label>  
+        <select name="artist" id="artist">  
+            <option value="Michael Jackson">Michael Jackson</option>  
+            <option value="Drake">Drake</option>  
+            <option value="Kendrick Lamar">Kendrick Lamar</option>  
+            <option value="Justin Timberlake">Justin Timberlake</option>  
+        </select>  
+        <label for="num_songs">Number of Songs:</label>  
+        <input type="number" id="num_songs" name="num_songs" min="1" max="10">  
+        <input type="submit" value="Generate Playlist">  
+    </form>  
+</body>  
+</html>  

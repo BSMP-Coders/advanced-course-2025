@@ -1,0 +1,13 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <title>Your Custom Playlist</title>  
+</head>  
+<body>  
+    <h1>Your Custom Playlist</h1>  
+    {% for song in playlist %}  
+        <h2>{{ loop.index }}. {{ song.title }}</h2>  
+        <img src="{{ song.cover }}" alt="Album Cover">  
+    {% endfor %}  
+</body>  
+</html>  

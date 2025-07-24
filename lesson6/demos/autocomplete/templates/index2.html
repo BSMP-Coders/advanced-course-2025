@@ -1,0 +1,97 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Autocomplete</title>  
+    <style>  
+        body {  
+            font-family: Arial, sans-serif;  
+            display: flex;  
+            flex-direction: column;  
+            align-items: center;  
+            justify-content: center;  
+            height: 100vh;  
+            margin: 0;  
+        }  
+        .clock {  
+            font-size: 4rem;  
+            margin-bottom: 20px;  
+        }  
+        .tabs {  
+            display: flex;  
+            gap: 10px;  
+            margin-bottom: 20px;  
+        }  
+        .tab {  
+            padding: 10px 20px;  
+            background-color: #f0f0f0;  
+            border-radius: 5px;  
+            cursor: pointer;  
+        }  
+        .tab.active {  
+            background-color: #ccc;  
+        }  
+        .input-container {  
+            margin-bottom: 20px;  
+        }  
+        .input-field {  
+            width: 300px;  
+            padding: 10px;  
+            font-size: 1.5rem;  
+        }  
+        .suggestions {  
+            font-size: 2rem;  
+            margin-top: 20px;  
+        }  
+        .response-time {  
+            font-size: 1rem;  
+            color: purple;  
+            margin-top: 10px;  
+        }  
+    </style>  
+    <script>  
+        function startClock() {  
+            const clockElement = document.getElementById('clock');  
+            setInterval(() => {  
+                const now = new Date();  
+                clockElement.textContent = now.toLocaleTimeString();  
+            }, 1000);  
+        }  
+  
+        async function getAutocomplete() {  
+            const prompt = document.getElementById('inputText').value;  
+            const startTime = performance.now();  
+            const response = await fetch('/autocomplete', {  
+                method: 'POST',  
+                headers: {  
+                    'Content-Type': 'application/json'  
+                },  
+                body: JSON.stringify({ prompt })  
+            });  
+            const data = await response.json();  
+            const endTime = performance.now();  
+            document.getElementById('suggestions').innerText = data.suggestions;  
+            document.getElementById('responseTime').innerText = `${Math.round(endTime - startTime)}ms`;  
+        }  
+  
+        document.addEventListener('DOMContentLoaded', () => {  
+            startClock();  
+        });  
+    </script>  
+</head>  
+<body>  
+    <div id="clock" class="clock"></div>  
+    <div class="tabs">  
+        <div class="tab active">Normal</div>  
+        <div class="tab">German</div>  
+        <div class="tab">Slang</div>  
+        <div class="tab">Grammar</div>  
+    </div>  
+    <div class="input-container">  
+        <input type="text" id="inputText" class="input-field" oninput="getAutocomplete()">  
+    </div>  
+    <div id="suggestions" class="suggestions"></div>  
+    <div id="responseTime" class="response-time"></div>  
+</body>  
+</html>  
